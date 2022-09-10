@@ -2,6 +2,7 @@ import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import MainHome from './pages/MainHome'
 import Login from './pages/login/Login'
+import Home from './pages/admin/Home'
 
 const App = () => {
   const currentUser = localStorage.getItem('Auth Token')
@@ -18,7 +19,7 @@ const App = () => {
           <Route path='login' element={<Login />} />
           
           <Route path='admin'>
-            <Route exact index element={<RequireAuth><h1>Hello Admin Home page</h1></RequireAuth>} />
+            <Route exact index element={<RequireAuth><Home /></RequireAuth>} />
           </Route>
         </Route>
       </Routes>
