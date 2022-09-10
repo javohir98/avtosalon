@@ -13,7 +13,7 @@ const Login = () => {
   const onSubmit = async data => {
     await axios.post('https://cartestwebapp.herokuapp.com/employee/login', data)
       .then((response) => {
-        console.log(response.data.data.token);
+        console.log(response.data);
         localStorage.setItem('Auth Token', response.data.data.token)
       })
       .catch((err) => {

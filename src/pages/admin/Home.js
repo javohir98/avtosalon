@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Sidebar from './components/sidebar/Sidebar'
 import AdminHeader from './components/header/AdminHeader'
 import { 
   Container 
 } from './MainStyles'
+import { getCars } from '../../redux/admin/adminSlice'
 
 const Home = () => {
+  const [params, setParams] = useState({limit: 5, page: 1})
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getCars(params))
+  }, [params])
+
   return (
     <Container mode='dark'>
       <Sidebar />
-      <div>
+      <div style={{width: '100%'}}>
         <AdminHeader />
         <h1>The list here</h1>
       </div>
