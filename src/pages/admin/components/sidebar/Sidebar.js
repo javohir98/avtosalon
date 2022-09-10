@@ -15,8 +15,8 @@ const Sidebar = () => {
     <Container>
       <ul>
         <li><SideLink to='/admin'><AiTwotoneHome />Asosiy</SideLink></li>
-        <li><SideLink to='/elonlar'><BiStore />E’lonlar</SideLink></li>
-        <li><SideLink to='/faq'><BiNotepad />Savollar</SideLink></li>
+        <li><SideLink to='/admin/elonlar'><BiStore />E’lonlar</SideLink></li>
+        <li><SideLink to='/admin/faq'><BiNotepad />Savollar</SideLink></li>
       </ul>
       <DarkModeCont>
         <IconBox onClick={() => dispatch(changeMode('light'))}>{getMode === 'light' ? <BsSunFill /> : <BsSun />}</IconBox>

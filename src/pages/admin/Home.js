@@ -3,11 +3,12 @@ import { useDispatch } from 'react-redux'
 import Sidebar from './components/sidebar/Sidebar'
 import AdminHeader from './components/header/AdminHeader'
 import { 
-  Container 
+  Container,
+  Wrapper 
 } from './MainStyles'
 import { getCars } from '../../redux/admin/adminSlice'
 
-const Home = () => {
+const Home = ({children}) => {
   const [params, setParams] = useState({limit: 5, page: 1})
   const dispatch = useDispatch()
 
@@ -20,7 +21,9 @@ const Home = () => {
       <Sidebar />
       <div style={{width: '100%'}}>
         <AdminHeader />
-        <h1>The list here</h1>
+        <Wrapper>
+          {children}
+        </Wrapper>
       </div>
     </Container>
   )
