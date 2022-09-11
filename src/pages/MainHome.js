@@ -1,8 +1,9 @@
 import React from 'react'
+import Models from './models/Models'
 
 const MainHome = () => {
   return (
-    <div>MainHome</div>
+    <Models />
   )
 }
 
