@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Cards = styled.div`
@@ -5,11 +6,14 @@ export const Cards = styled.div`
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: auto;
     grid-gap: 32px;
+    margin-top: 48px;
 
 `;
 
-export const Card = styled.div`
+export const Card = styled(Link)`
     height: 50px;
+    text-decoration: none;
+    
     
     img {
         width: 100%;
@@ -19,5 +23,7 @@ export const Card = styled.div`
         font-weight: 500;
         font-size: 24px;
         text-align: center;
+        color: #000!important;
+        text-transform: uppercase;
     }
 `;

@@ -6,11 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCars } from '../../../redux/admin/adminSlice';
 import tag from '../../../assets/images/tag.png'
 import { AiOutlinePlus } from 'react-icons/ai'
+import CategoryModule from '../../../modules/category/Category.module';
+import AddCarModule from '../../../modules/car/AddCar.module';
 
     
 const CarList = () => {
     const PageSize = 5;
     const [currentPage, setCurrentPage] = useState(1);
+    const [isOpenCategory, setIsOpenCategory] = useState(false);
+    const [isOpenCars, setIsOpenCars] = useState(false);
     const total = useSelector(state => state.admin?.totalCars)
     const dispatch = useDispatch()
 
@@ -26,8 +30,8 @@ const CarList = () => {
                     <h3>Mashinalar</h3>
                 </div>
                 <div className='btn-container'>
-                    <ActionsBtn><AiOutlinePlus />Kategoriya qo’shish</ActionsBtn>
-                    <ActionsBtn><AiOutlinePlus />Mashina qo’shish</ActionsBtn>
+                    <ActionsBtn onClick={() => setIsOpenCategory(true)}><AiOutlinePlus />Kategoriya qo’shish</ActionsBtn>
+                    <ActionsBtn onClick={() => setIsOpenCars(true)}><AiOutlinePlus />Mashina qo’shish</ActionsBtn>
                 </div>
             </Head>
             <Table>
@@ -44,6 +48,7 @@ const CarList = () => {
                         <Th>Actions</Th>
                     </Tr>
                 </THead>
+                <div style={{height: '32px'}}></div>
                 <TBody>
                     <List />
                 </TBody>
@@ -57,6 +62,8 @@ const CarList = () => {
                     onPageChange={page => setCurrentPage(page)}
                 />
             </PContainer>
+            {isOpenCategory && <CategoryModule close={setIsOpenCategory} />}
+            {isOpenCars && <AddCarModule close={setIsOpenCars} />}
         </Container>
     )
     }

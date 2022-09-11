@@ -19,7 +19,7 @@ const Models = () => {
       <div className='container'>
         <Cards>
           {categories.map((item, index) => (
-            <Card>
+            <Card to='model-cars'>
               <img src={`${'https://cartestwebapp.herokuapp.com/'}${item.imgUrl}`} alt={item.name} />
               <h3>{item.name}</h3>
             </Card>
