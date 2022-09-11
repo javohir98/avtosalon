@@ -7,8 +7,8 @@ const List = () => {
 
   return (
     <>
-        {list?.data?.map((item, index) => (
-            <ListItem item={item} index={index + 1} />
+        {list?.map((item, index) => (
+            <ListItem key={index} item={item} index={index + 1} />
         ))}
     </>
   )

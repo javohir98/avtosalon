@@ -9,7 +9,7 @@ import { getCars } from '../../../redux/admin/adminSlice';
 const CarList = () => {
     const PageSize = 5;
     const [currentPage, setCurrentPage] = useState(1);
-    const total = useSelector(state => state.admin.cars.total)
+    const total = useSelector(state => state.admin?.totalCars)
     const dispatch = useDispatch()
 
     useMemo(() => {
@@ -41,7 +41,7 @@ const CarList = () => {
                 <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}
-                    totalCount={63}
+                    totalCount={total}
                     pageSize={PageSize}
                     onPageChange={page => setCurrentPage(page)}
                 />

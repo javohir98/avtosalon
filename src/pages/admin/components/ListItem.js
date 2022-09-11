@@ -2,8 +2,26 @@ import React from 'react'
 import { Tr, Td, Button } from '../cars_list/index.style'
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { deleteItem } from '../../../redux/admin/adminSlice'
 
 const ListItem = ({item, index}) => {
+  const dispatch = useDispatch()
+
+  const handleDelete = (id) => {
+    axios.delete(`https://cartestwebapp.herokuapp.com/car/${id}`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('Auth Token')}`
+      },
+    })
+      .then(res => {
+        dispatch(deleteItem(id))
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
     
   return (
     <Tr>
@@ -17,7 +35,7 @@ const ListItem = ({item, index}) => {
         <Td>{item.distance}</Td>
         <Td>
           <Button color='#438aca' style={{paddingRight: '8px'}}><FaEdit /></Button>
-          <Button color='#dc4a38'><MdDelete /></Button>
+          <Button color='#dc4a38' onClick={() => handleDelete(item._id)}><MdDelete /></Button>
         </Td>
     </Tr>
   )
