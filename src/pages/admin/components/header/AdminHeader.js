@@ -3,11 +3,14 @@ import { Header, BackToSite, UserInfoNft, UserInfoImgBox, UserInfo } from './Adm
 import { AiOutlineUser } from 'react-icons/ai'
 import { MdOutlineNotificationsActive } from 'react-icons/md'
 import avatar from '../../../../assets/images/avatar.png'
+import { useNavigate } from 'react-router-dom'
 
 const AdminHeader = () => {
+  const navigate = useNavigate()
+
   return (
     <Header>
-      <BackToSite><AiOutlineUser />Back to Site</BackToSite>
+      <BackToSite onClick={() => navigate('/')}><AiOutlineUser />Back to Site</BackToSite>
       <UserInfo>
         <UserInfoNft>
           <MdOutlineNotificationsActive />

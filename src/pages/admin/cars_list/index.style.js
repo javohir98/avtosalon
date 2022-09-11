@@ -68,3 +68,11 @@ export const Button  = styled.button`
         color: ${props => props.color}
     }
 `;
+
+export const PContainer = styled.div`
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;

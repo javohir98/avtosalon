@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import MainHome from './pages/MainHome'
 import Login from './pages/login/Login'
 import Home from './pages/admin/Home'
-import CarList from './pages/admin/cars_list'
+import CarList from './pages/admin/cars_list/CarList'
 
 const App = () => {
   const currentUser = localStorage.getItem('Auth Token')
