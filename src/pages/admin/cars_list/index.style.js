@@ -6,6 +6,48 @@ export const Container = styled.div`
     background-color: #FCFCFC;
 `;
 
+export const Head = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+
+    .title {
+        display: flex;
+        align-items: center;
+
+        h3 {
+            margin-left: 16px;
+        }
+    }
+
+    .btn-container {
+        display: flex;
+        align-items: center;
+        column-gap: 32px;
+    }
+`;
+
+export const ActionsBtn = styled.button`
+    padding: 12px 20px;
+    height: 48px;
+    background-color: #2A85FF;
+    border-radius: 12px;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        margin-right: 10px;
+        font-size: 20px;
+    }
+`;
+
 export const Table = styled.table`
     width: 100%;
     border-collapse: collapse;
@@ -58,7 +100,6 @@ export const Td = styled.td`
 `;
 
 export const Button  = styled.button`
-
     background: transparent;
     border: none;
     cursor: pointer;    

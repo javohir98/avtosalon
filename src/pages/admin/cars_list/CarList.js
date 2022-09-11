@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import List from '../components/List';
-import { Container, Table, TBody, Th, THead, Tr, PContainer } from './index.style';
+import { Container, Table, TBody, Th, THead, Tr, PContainer, Head, ActionsBtn } from './index.style';
 import Pagination from '../../../components/pagination/Pagination'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCars } from '../../../redux/admin/adminSlice';
+import tag from '../../../assets/images/tag.png'
+import { AiOutlinePlus } from 'react-icons/ai'
 
     
 const CarList = () => {
@@ -18,7 +20,16 @@ const CarList = () => {
     
     return (
         <Container>
-            <h1>Title and Actions</h1>
+            <Head>
+                <div className='title'>
+                    <img src={tag} />
+                    <h3>Mashinalar</h3>
+                </div>
+                <div className='btn-container'>
+                    <ActionsBtn><AiOutlinePlus />Kategoriya qo’shish</ActionsBtn>
+                    <ActionsBtn><AiOutlinePlus />Mashina qo’shish</ActionsBtn>
+                </div>
+            </Head>
             <Table>
                 <THead>
                     <Tr>
