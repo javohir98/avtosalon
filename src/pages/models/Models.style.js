@@ -7,7 +7,6 @@ export const Cards = styled.div`
     grid-auto-rows: auto;
     grid-gap: 32px;
     margin-top: 48px;
-
 `;
 
 export const Card = styled(Link)`
@@ -26,4 +25,10 @@ export const Card = styled(Link)`
         color: #000!important;
         text-transform: uppercase;
     }
+`;
+
+export const Title = styled.h3`
+    margin-top: 24px;
+    font-weight: 600;
+    font-size: 46px;
 `;
