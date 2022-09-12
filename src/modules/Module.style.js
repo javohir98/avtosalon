@@ -122,4 +122,28 @@ export const Button = styled.button`
     font-weight: 700;
     font-size: 15px;
     float: right;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &:disabled {
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
+    }
 `;
+
+
+export const Select = styled.select`
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: #F4F4F4;
+    border: none;
+    
+
+    &:focus {
+        outline: none;
+    }
+`;
+
+export const Option = styled.option``;

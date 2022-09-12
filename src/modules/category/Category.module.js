@@ -7,19 +7,19 @@ import axios from 'axios';
 
 
 const CategoryModule = ({close}) => {
-    const { register, handleSubmit } = useForm();
-    const [imgUrl, setImgUrl] = useState(null)
+    const { register, handleSubmit, reset } = useForm();
+    const [isLoading, setIsLoading] = useState(false)
     
     const onSubmit = async data => {
         const formData = new FormData();
         formData.append("file", data.file[0]);
+        setIsLoading(true)
 
         await axios.post('https://cartestwebapp.herokuapp.com/upload', formData)
         .then((res) => {
-            console.log(res);
             addCategory(data.name, res.data.data)
         })
-        
+        .catch(err => console.log(err))
     }
 
     const addCategory = async (name, imgUrl) => {
@@ -32,8 +32,11 @@ const CategoryModule = ({close}) => {
             
         })
         .then((res) => {
-            console.log(res);
+            reset()
+            setIsLoading(false)
+            close(false)
         })
+        .catch(err => console.log(err))
     }
 
   return (
@@ -60,7 +63,7 @@ const CategoryModule = ({close}) => {
                     </FormRowBox>
                 </FormGroup>
                 <FormLine />
-                <Button type='submit'>Saqlash</Button>
+                <Button disabled={isLoading} type='submit'>Saqlash</Button>
             </Form>
         </Container>
     </Wrapper>

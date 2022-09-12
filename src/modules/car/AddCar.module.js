@@ -1,16 +1,56 @@
-import React from 'react'
-import { Button, Close, Container, Form, FormGroup, FormLine, FormRowBox, Header, Input, Label, TextArea, Wrapper } from '../Module.style'
+import React, { useState } from 'react'
+import { Button, Close, Container, Form, FormGroup, FormLine, FormRowBox, Header, Input, Label, Option, Select, TextArea, Wrapper } from '../Module.style'
 import { IoMdClose } from 'react-icons/io'
 import tag from '../../assets/images/tag_dark.png'
 import { useForm } from "react-hook-form";
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const AddCarModule = ({close}) => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+    const categories = useSelector(state => state.user.category)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const onSubmit = data => {
+    const onSubmit = async data => {
         const formData = new FormData();
-        formData.append("file", data.file[0]);
-        console.log(data.file[0]);
+        formData.append("file", data.imgUrl[0]);
+        setIsLoading(true)
+
+        await axios.post('https://cartestwebapp.herokuapp.com/upload', formData)
+        .then((res) => {
+            let temporarilyData = {
+                "imgUrl": res.data.data,
+                "imgUrlInside":"img-db607b3fdb99095051f37c849887ace7.jpg",
+                "imgUrlAutside":"img-9c3a72917ef084370f9130349ed33445.jpg",
+                "price": parseInt(data.price),
+                "year": parseInt(data.year),
+                "description": data.description,
+                "tonirovka": data.tonirovka,
+                "motor": data.motor,
+                "color": data.color,
+                "distance": data.distance,
+                "gearbok": data.gearbok,
+                "categoryId": data.categoryId
+            }
+            
+            addCar(temporarilyData)
+        })
+        
+    }
+
+    const addCar = async (data) => {
+
+        await axios.post('https://cartestwebapp.herokuapp.com/car', data, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('Auth Token')
+            }
+            
+        })
+        .then((res) => {
+            setIsLoading(false)
+            reset()
+            close(false)
+        })
     }
 
   return (
@@ -29,65 +69,72 @@ const AddCarModule = ({close}) => {
                 <FormGroup>
                     <FormRowBox>
                         <Label>Markasi</Label>
-                        <Input {...register("name")} type={'text'} placeholder='Kiriting' />
+                        <Select {...register("categoryId")}>
+                            {categories.map((item) => (
+                                <Option value={item._id}>{item.name}</Option>
+                            ))}
+                        </Select>
                     </FormRowBox>
                     <FormRowBox>
                         <Label>Tanirovkasi</Label>
-                        <Input {...register("file")} type={'text'} placeholder='Kiriting' />
+                        <Select {...register("tonirovka")}>
+                            <Option value='bor'>bor</Option>
+                            <Option value="yo'q">yo'q</Option>
+                        </Select>
                     </FormRowBox>
                 </FormGroup>
                 <FormGroup>
                     <FormRowBox>
                         <Label>Motor</Label>
-                        <Input {...register("name")} type={'text'} placeholder='Kiriting' />
+                        <Input {...register("motor")} type={'text'} placeholder='Kiriting' />
                     </FormRowBox>
                     <FormRowBox>
                         <Label>Year</Label>
-                        <Input {...register("text")} type={'text'} placeholder='Kiriting' />
+                        <Input {...register("year")} type={'number'} placeholder='Kiriting' />
                     </FormRowBox>
                 </FormGroup>
                 <FormGroup>
                     <FormRowBox>
                         <Label>Color</Label>
-                        <Input {...register("name")} type={'text'} placeholder='Kiriting' />
+                        <Input {...register("color")} type={'text'} placeholder='Kiriting' />
                     </FormRowBox>
                     <FormRowBox>
                         <Label>Distance</Label>
-                        <Input {...register("file")} type={'text'} placeholder='Kiriting' />
+                        <Input {...register("distance")} type={'number'} placeholder='Kiriting' />
                     </FormRowBox>
                 </FormGroup>
                 <FormGroup>
                     <FormRowBox>
                         <Label>Gearbook</Label>
-                        <Input {...register("name")} type={'text'} placeholder='Kiriting' />
+                        <Input {...register("gearbok")} type={'text'} placeholder='Kiriting' />
                     </FormRowBox>
                     <FormRowBox>
                         <Label>Narxi</Label>
-                        <Input {...register("price")} type={'text'} placeholder='Kiriting' />
+                        <Input {...register("price")} type={'number'} placeholder='Kiriting' />
                     </FormRowBox>
                 </FormGroup>
                 <FormGroup>
                     <FormRowBox>
                         <Label>Rasm 360 ichki makon</Label>
-                        <Input {...register("name")} type={'file'} placeholder='Kiriting' />
+                        <Input {...register("imgUrlInside")} type={'file'} placeholder='Kiriting' />
                     </FormRowBox>
                     <FormRowBox>
                         <Label>Rasm 360 tashqi makon</Label>
-                        <Input {...register("file")} type={'file'} placeholder='Kiriting' />
+                        <Input {...register("imgUrlAutside")} type={'file'} placeholder='Kiriting' />
                     </FormRowBox>
                 </FormGroup>
                 <FormGroup>
                     <FormRowBox>
                         <Label>Deseription</Label>
-                        <TextArea rows={6} {...register("name")} type={'file'} placeholder='Mazmuni kiriting' />
+                        <TextArea rows={6} {...register("description")} type={'text'} placeholder='Mazmuni kiriting' />
                     </FormRowBox>
                     <FormRowBox>
                         <Label>Modeli turi uchun rasm </Label>
-                        <Input {...register("file")} type={'file'} placeholder='Kiriting' />
+                        <Input {...register("imgUrl")} type={'file'} placeholder='Kiriting' />
                     </FormRowBox>
                 </FormGroup>
                 <FormLine />
-                <Button type='submit'>Saqlash</Button>
+                <Button disabled={isLoading} type='submit'>Saqlash</Button>
             </Form>
         </Container>
     </Wrapper>

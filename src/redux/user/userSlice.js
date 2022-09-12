@@ -12,12 +12,12 @@ const BASE_URL = 'https://cartestwebapp.herokuapp.com/'
 
 
 export const getCategory = createAsyncThunk('user/getCategory', async () => {
-    const response = await axios.get(`${BASE_URL}category/marka?limit=4&page=1`)
+    const response = await axios.get(`${BASE_URL}category/marka?limit=&page=1`)
     return response.data.data
 })
 
 export const getCategoryCars = createAsyncThunk('user/getCategoryCars', async (id) => {
-    const response = await axios.get(`${BASE_URL}car?limit=5&page=1&categoryId=${'63180c53d0953487569045c7'}`)
+    const response = await axios.get(`${BASE_URL}car?limit=5&page=1&categoryId=${id}`)
     return response.data.data.data
 })
 

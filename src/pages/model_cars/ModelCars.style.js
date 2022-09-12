@@ -7,6 +7,24 @@ export const Cards = styled.div`
     grid-auto-rows: auto;
     grid-gap: 32px;
     margin-top: 48px;
+
+    @media screen and (max-width: 992px) {
+        & {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        & {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 560px) {
+        & {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
 `;
 
 export const Card = styled(Link)`

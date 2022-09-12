@@ -8,6 +8,7 @@ import tag from '../../../assets/images/tag.png'
 import { AiOutlinePlus } from 'react-icons/ai'
 import CategoryModule from '../../../modules/category/Category.module';
 import AddCarModule from '../../../modules/car/AddCar.module';
+import { getCategory } from '../../../redux/user/userSlice';
 
     
 const CarList = () => {
@@ -21,6 +22,11 @@ const CarList = () => {
     useMemo(() => {
         dispatch(getCars({limit: 5, page: currentPage}))
     }, [currentPage]);
+
+    const changeOpenCar = () => {
+        setIsOpenCars(true)
+        dispatch(getCategory())
+    }
     
     return (
         <Container>
@@ -31,7 +37,7 @@ const CarList = () => {
                 </div>
                 <div className='btn-container'>
                     <ActionsBtn onClick={() => setIsOpenCategory(true)}><AiOutlinePlus />Kategoriya qo’shish</ActionsBtn>
-                    <ActionsBtn onClick={() => setIsOpenCars(true)}><AiOutlinePlus />Mashina qo’shish</ActionsBtn>
+                    <ActionsBtn onClick={changeOpenCar}><AiOutlinePlus />Mashina qo’shish</ActionsBtn>
                 </div>
             </Head>
             <Table>

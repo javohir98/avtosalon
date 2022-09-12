@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../../components/navbar/Navbar'
-import { getCategoryCars } from '../../redux/user/userSlice'
+import { getCategoryCars, selectCategory } from '../../redux/user/userSlice'
 import { numberWithSpaces } from '../../utils/numberFormat'
 import { Card, Cards, Title } from './ModelCars.style'
 
@@ -13,6 +13,10 @@ const ModelCars = () => {
   useEffect(() => {
     if(id) {
       dispatch(getCategoryCars(id))
+    }
+
+    return () => {
+      dispatch(selectCategory(''))
     }
   }, [])
 
