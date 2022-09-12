@@ -6,15 +6,18 @@ import {
   Wrapper } from './Login.style'
 import { useForm } from "react-hook-form";
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate()
 
   const onSubmit = async data => {
     await axios.post('https://cartestwebapp.herokuapp.com/employee/login', data)
       .then((response) => {
         console.log(response.data);
         localStorage.setItem('Auth Token', response.data.data.token)
+        navigate('/admin')
       })
       .catch((err) => {
         console.log(err);

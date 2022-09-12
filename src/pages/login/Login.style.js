@@ -46,6 +46,7 @@ export const Form = styled.form`
         padding: 12px 20px;
         margin: 8px 0;
         box-sizing: border-box;
+        cursor: pointer;
     }
 
     input::-webkit-outer-spin-button,
