@@ -6,9 +6,12 @@ import Home from './pages/admin/Home'
 import CarList from './pages/admin/cars_list/CarList'
 import ModelCars from './pages/model_cars/ModelCars'
 import CarDetails from './pages/car_details/CarDetails'
+import { useSelector } from 'react-redux'
+import AddCarModule from './modules/car/AddCar.module'
 
 const App = () => {
   const currentUser = localStorage.getItem('Auth Token')
+  const isEdit = useSelector(state => state.admin.isEdit)
 
   const RequireAuth = ({children}) => {
     return currentUser ? (children) : <Navigate to='/login' />
@@ -30,6 +33,7 @@ const App = () => {
           </Route>
         </Route>
       </Routes>
+      {isEdit.isOpen && <AddCarModule />}
     </div>
   )
 }

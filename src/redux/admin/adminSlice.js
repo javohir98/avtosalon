@@ -5,7 +5,11 @@ const initialState = {
     mode: 'light',
     cars: [],
     totalCars: '',
-    test: ''
+    test: '',
+    isEdit: {
+        isOpen: false,
+        data: ''
+    },
 }
 
 export const getCars = createAsyncThunk('admin/getCars', async ({limit=5, page=1}) => {
@@ -22,6 +26,9 @@ export const adminSlice = createSlice({
         },
         deleteItem: (state, action) => {
             state.cars =  state.cars?.filter((item) => item._id !== action.payload)
+        },
+        changeEdit: (state, action) => {
+            state.isEdit = action.payload
         }
     },
     extraReducers(builder) {
@@ -35,6 +42,6 @@ export const adminSlice = createSlice({
 
 // export const getMode = (state) => state.mode
 
-export const { changeMode, deleteItem } = adminSlice.actions
+export const { changeMode, deleteItem, changeEdit } = adminSlice.actions
 
 export default adminSlice.reducer

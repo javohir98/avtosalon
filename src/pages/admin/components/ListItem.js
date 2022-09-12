@@ -4,7 +4,8 @@ import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { deleteItem } from '../../../redux/admin/adminSlice'
+import { changeEdit, deleteItem } from '../../../redux/admin/adminSlice'
+import { getCategory } from '../../../redux/user/userSlice'
 
 const ListItem = ({item, index}) => {
   const dispatch = useDispatch()
@@ -22,6 +23,14 @@ const ListItem = ({item, index}) => {
         console.log(err);
       })
   }
+
+  const edit = () => {
+    dispatch(changeEdit({
+      isOpen: true,
+      data: item
+    }))
+    dispatch(getCategory())
+  }
     
   return (
     <Tr>
@@ -34,7 +43,7 @@ const ListItem = ({item, index}) => {
         <Td>{item.color}</Td>
         <Td>{item.distance}</Td>
         <Td>
-          <Button color='#438aca' style={{paddingRight: '8px'}}><FaEdit /></Button>
+          <Button color='#438aca' style={{paddingRight: '8px'}} onClick={edit}><FaEdit /></Button>
           <Button color='#dc4a38' onClick={() => handleDelete(item._id)}><MdDelete /></Button>
         </Td>
     </Tr>
