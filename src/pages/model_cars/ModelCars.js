@@ -28,7 +28,7 @@ const ModelCars = () => {
         <Cards>
           {selectedCars.map((item, index) => (
             <div>
-              <Card to={`model-car/view/${item.name}`}>
+              <Card to={`/model-car/view/${item._id}`}>
                 <img src={`${'https://cartestwebapp.herokuapp.com/'}${item.imgUrl}`} alt={item.name} />
                 <h3>{item.marka?.name}</h3>
                 <h3>Narxi: {numberWithSpaces(item.price)}</h3>

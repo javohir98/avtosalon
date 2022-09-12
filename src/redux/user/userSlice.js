@@ -21,6 +21,11 @@ export const getCategoryCars = createAsyncThunk('user/getCategoryCars', async (i
     return response.data.data.data
 })
 
+export const getCarDetails = createAsyncThunk('user/getCarDetails', async (id) => {
+    const response = await axios.get(`${BASE_URL}car/${id}`)
+    return response.data.data
+})
+
 export const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -36,6 +41,9 @@ export const userSlice = createSlice({
             })
             .addCase(getCategoryCars.fulfilled, (state, action) => {
                 state.selectedCategoryCars = action.payload
+            })
+            .addCase(getCarDetails.fulfilled, (state, action) => {
+                state.selectCar = action.payload
             })
     }
 })
