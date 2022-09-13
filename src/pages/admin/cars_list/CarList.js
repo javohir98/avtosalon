@@ -18,6 +18,7 @@ const CarList = () => {
     const [isOpenCategory, setIsOpenCategory] = useState(false);
     const [isOpenCars, setIsOpenCars] = useState(false);
     const total = useSelector(state => state.admin?.totalCars)
+    const status = useSelector(state => state.admin.status)
     const dispatch = useDispatch()
 
     useMemo(() => {
@@ -25,8 +26,14 @@ const CarList = () => {
     }, [currentPage]);
 
     useEffect(() => {
-        total.length !== 0 ? setIsLoading(false) : setIsLoading(true)
-    }, [total])
+        if(status === 'loading') {
+            setIsLoading(true)
+        } else if(status === 'succeeded') {
+            setIsLoading(false)
+        } else if(status === 'failed') {
+            alert("Something wrong with load!")
+        }
+    }, [status])
 
     const changeOpenCar = () => {
         setIsOpenCars(true)

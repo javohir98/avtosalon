@@ -7,5 +7,5 @@ export const store = configureStore({
         user: userSlice,
         admin: adminSlice,
     },
-    devTools: false
+    devTools: true
 })

@@ -5,7 +5,9 @@ const initialState = {
     category: [],
     selectCategory: '',
     selectedCategoryCars: [],
-    selectCar: ''
+    selectCar: '',
+    status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
+    error: null
 }
 
 const BASE_URL = 'https://cartestwebapp.herokuapp.com/'
@@ -36,14 +38,38 @@ export const userSlice = createSlice({
     },
     extraReducers(builder) {
         builder
+            .addCase(getCategory.pending, (state, action) => {
+                state.status = 'loading'
+            })
             .addCase(getCategory.fulfilled, (state, actions) => {
+                state.status = 'succeeded'
                 state.category = actions.payload.data
             })
+            .addCase(getCategory.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
+            })
+            .addCase(getCategoryCars.pending, (state, action) => {
+                state.status = 'loading'
+            })
             .addCase(getCategoryCars.fulfilled, (state, action) => {
+                state.status = 'succeeded'
                 state.selectedCategoryCars = action.payload
             })
+            .addCase(getCategoryCars.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
+            })
+            .addCase(getCarDetails.pending, (state, action) => {
+                state.status = 'loading'
+            })
             .addCase(getCarDetails.fulfilled, (state, action) => {
+                state.status = 'succeeded'
                 state.selectCar = action.payload
+            })
+            .addCase(getCarDetails.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
             })
     }
 })

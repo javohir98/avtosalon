@@ -10,6 +10,8 @@ const initialState = {
         isOpen: false,
         data: ''
     },
+    status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
+    error: null
 }
 
 export const getCars = createAsyncThunk('admin/getCars', async ({limit=5, page=1}) => {
@@ -33,9 +35,17 @@ export const adminSlice = createSlice({
     },
     extraReducers(builder) {
         builder
+            .addCase(getCars.pending, (state, action) => {
+                state.status = 'loading'
+            })
             .addCase(getCars.fulfilled, (state, action) => {
+                state.status = 'succeeded'
                 state.cars = action.payload.data
                 state.totalCars = action.payload.total
+            })
+            .addCase(getCars.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
             })
     }
 })

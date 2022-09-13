@@ -10,6 +10,7 @@ const ModelCars = () => {
   const dispatch = useDispatch()
   const id = useSelector(state => state.user.selectCategory._id)
   const selectedCars = useSelector(state => state.user.selectedCategoryCars)
+  const status = useSelector(state => state.user.status)
 
   useEffect(() => {
     if(id) {
@@ -22,8 +23,14 @@ const ModelCars = () => {
   }, [])
 
   useEffect(() => {
-    selectedCars.length !== 0 ? setIsLoading(false) : setIsLoading(true)
-  }, [selectedCars])
+    if(status === 'loading') {
+        setIsLoading(true)
+    } else if(status === 'succeeded') {
+        setIsLoading(false)
+    } else if(status === 'failed') {
+        alert("Something wrong with load!")
+    }
+  }, [status, dispatch])
 
   return (
     <>
@@ -34,17 +41,22 @@ const ModelCars = () => {
           ?
             <h1 style={{textAlign: 'center'}}>Loading...</h1> 
           :
-            <Cards>
-              {selectedCars.map((item, index) => (
-                <div>
-                  <Card to={`/model-car/view/${item._id}`}>
-                    <img src={`${'https://cartestwebapp.herokuapp.com/'}${item.imgUrl}`} alt={item.name} />
-                    <h3>{item.marka?.name}</h3>
-                    <h3>Narxi: {numberWithSpaces(item.price)}</h3>
-                  </Card>
-                </div>
-              ))}
-            </Cards>
+            (
+              selectedCars.length === 0 ?
+                <h1 style={{textAlign: 'center'}}>Empty</h1> 
+              :
+                <Cards>
+                  {selectedCars.map((item, index) => (
+                    <div>
+                      <Card to={`/model-car/view/${item._id}`}>
+                        <img src={`${'https://cartestwebapp.herokuapp.com/'}${item.imgUrl}`} alt={item.name} />
+                        <h3>{item.marka?.name}</h3>
+                        <h3>Narxi: {numberWithSpaces(item.price)}</h3>
+                      </Card>
+                    </div>
+                  ))}
+                </Cards>
+            )
         }
       </div>
     </>

@@ -9,14 +9,19 @@ const Models = () => {
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
   const categories = useSelector(state => state.user.category)
+  const status = useSelector(state => state.user.status)
 
   useEffect(() => {
-    dispatch(getCategory())
-  }, [])
-
-  useEffect(() => {
-    categories.length === 0 ? setIsLoading(false) : setIsLoading(true)
-  }, [categories])
+    if(status === 'idle')
+      dispatch(getCategory())
+    if(status === 'loading') {
+        setIsLoading(true)
+    } else if(status === 'succeeded') {
+        setIsLoading(false)
+    } else if(status === 'failed') {
+        alert("Something wrong with load!")
+    }
+  }, [status, dispatch])
   
 
   return (
@@ -25,17 +30,26 @@ const Models = () => {
       <div className='container'>
         <Title>Modellari</Title>
         {isLoading ? 
-          <Cards>
-            {categories.map((item, index) => (
-              <div>
-                <Card to={`model-cars/${item.name}`} onClick={() => dispatch(selectCategory(item))}>
-                  <img src={`${'https://cartestwebapp.herokuapp.com/'}${item.imgUrl}`} alt={item.name} />
-                  <h3>{item.name}</h3>
-                </Card>
-              </div>
-            ))}
-          </Cards>
-        : <h1 style={{textAlign: 'center'}}>Loading...</h1>}
+          <h1 style={{textAlign: 'center'}}>Loading...</h1>
+        : 
+          (
+            categories.length === 0 ? 
+              <h1 style={{textAlign: 'center'}}>Empty</h1>
+              :
+                <Cards>
+                  {categories.map((item, index) => (
+                    <div>
+                      <Card to={`model-cars/${item.name}`} onClick={() => dispatch(selectCategory(item))}>
+                        <img src={`${'https://cartestwebapp.herokuapp.com/'}${item.imgUrl}`} alt={item.name} />
+                        <h3>{item.name}</h3>
+                      </Card>
+                    </div>
+                  ))}
+                </Cards>
+            
+          )
+          
+        }
       </div>
     </>
   )

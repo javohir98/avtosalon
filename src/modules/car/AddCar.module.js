@@ -8,10 +8,10 @@ import axios from 'axios';
 import { changeEdit } from '../../redux/admin/adminSlice';
 
 const AddCarModule = ({close}) => {
+    const [isLoading, setIsLoading] = useState(false)
     const { register, handleSubmit, reset } = useForm();
     const categories = useSelector(state => state.user.category)
     const editData = useSelector(state => state.admin.isEdit.data)
-    const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
 
     const onSubmit = async data => {
@@ -69,11 +69,14 @@ const AddCarModule = ({close}) => {
     }
 
     const exitModule = () => {
-        dispatch(changeEdit({
-            isOpen: false,
-            data: ''
-        }))
-        close(false)
+        if(editData.length !== 0) {
+            dispatch(changeEdit({
+                isOpen: false,
+                data: ''
+            }))
+        } else {
+            close(false)
+        }
     }
 
   return (
