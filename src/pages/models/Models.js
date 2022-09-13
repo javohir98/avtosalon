@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from'react-redux'
 import { getCategory } from '../../redux/user/userSlice'
 import { Card, Cards, Title } from './Models.style'
 import { selectCategory } from '../../redux/user/userSlice'
+import axios from 'axios'
 
 const Models = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -22,6 +23,14 @@ const Models = () => {
         alert("Something wrong with load!")
     }
   }, [status, dispatch])
+
+  const handleDelete = async id => {
+    await axios.delete(`https://cartestwebapp.herokuapp.com/category/${id}`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('Auth Token')}`
+      },
+    })
+  }
   
 
   return (
