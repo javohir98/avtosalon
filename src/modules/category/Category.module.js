@@ -40,8 +40,8 @@ const CategoryModule = ({close}) => {
     }
 
   return (
-    <Wrapper>
-        <Container>
+    <Wrapper onClick={() => close(false)}>
+        <Container onClick={e => e.stopPropagation()}>
             <Header>
                 <div className='title'>
                     <img src={tag} />

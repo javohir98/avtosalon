@@ -11,11 +11,13 @@ export const Wrapper = styled.div`
 export const LoginContainer = styled.div`
     padding: 12px;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 12px;
+    box-shadow: 2px 4px 18px rgba(0, 0, 0, 0.1);
 `;
 
 export const Title = styled.h3`
     text-align: center;
+    margin-top: 12px;
 `;
 
 export const Form = styled.form`
@@ -26,27 +28,32 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
 
-
-    input[type=number] {
+    input {
+        border: none;
+        background-color: #f4f4f4;
+        border-radius: 12px;
+        margin: 8px 0;
         width: 100%;
         padding: 12px 20px;
-        margin: 8px 0;
-        box-sizing: border-box;
-    }
 
-    input[type=password] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        box-sizing: border-box;
+        &:focus {
+            outline: none;
+        }
     }
 
     input[type=submit] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        box-sizing: border-box;
         cursor: pointer;
+        background-color: #2A85FF;
+        color: #fff;
+        font-size: 15px;
+        letter-spacing: 1;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+
+        &:disabled {
+            cursor: no-drop;
+            background-color: rgb(42 133 255 / 60%);
+        }
     }
 
     input::-webkit-outer-spin-button,

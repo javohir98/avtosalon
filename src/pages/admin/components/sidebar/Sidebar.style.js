@@ -9,6 +9,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-shadow: 2px 1px 10px rgba(0, 0, 0, 0.1);
 
     ul {
         margin-top: 96px;
@@ -16,7 +17,7 @@ export const Container = styled.div`
     }
 
     li {
-        line-height: 24px;
+        margin-bottom: 24px;
     }
 `;
 

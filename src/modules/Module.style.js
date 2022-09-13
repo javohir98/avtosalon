@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Wrapper = styled.div`
     position: absolute;
@@ -6,11 +6,12 @@ export const Wrapper = styled.div`
     height: 100vh;
     top: 0;
     left: 0;
-    background-color: rgb(244, 244, 244, 0.8);
+    background-color: rgba(0,0,0,.45);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 88888;
+    overflow-y: scroll;
 `;
 
 export const Container = styled.div`
@@ -20,6 +21,7 @@ export const Container = styled.div`
     gap: 24px;
     box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.05), 0px 32px 48px -8px rgba(0, 0, 0, 0.1);
     background: #fff;
+    /* transform: translateY(-500%); */
 `;
 
 export const Header = styled.div`

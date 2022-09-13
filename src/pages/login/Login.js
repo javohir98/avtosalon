@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { 
   Form, 
   LoginContainer, 
@@ -10,18 +10,27 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const onSubmit = async data => {
-    await axios.post('https://cartestwebapp.herokuapp.com/employee/login', data)
+    setIsLoading(true)
+
+    try {
+      await axios.post('https://cartestwebapp.herokuapp.com/employee/login', data)
       .then((response) => {
-        console.log(response.data);
         localStorage.setItem('Auth Token', response.data.data.token)
+        console.log(response.data);
+        console.log('response.data');
         navigate('/admin')
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log(err);
       })
+    } catch(err) {
+      console.log(err);
+    }
   } 
 
   return (
@@ -40,7 +49,7 @@ const Login = () => {
             placeholder='Enter Your Password...' 
           />
 
-          <input type="submit" value={'Login'} />
+          <input disabled={isLoading} type="submit" value={'Login'} />
         </Form>
       </LoginContainer>
     </Wrapper>

@@ -8,6 +8,7 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 10px 2px 10px rgba(0, 0, 0, 0.1);
 `;
 
 export const BackToSite = styled.button`

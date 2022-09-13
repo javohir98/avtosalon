@@ -77,8 +77,8 @@ const AddCarModule = ({close}) => {
     }
 
   return (
-    <Wrapper>
-        <Container>
+    <Wrapper onClick={exitModule}>
+        <Container onClick={e => e.stopPropagation()}>
             <Header>
                 <div className='title'>
                     <img src={tag} />
