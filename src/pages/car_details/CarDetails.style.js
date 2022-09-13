@@ -90,3 +90,15 @@ export const FooterInfo = styled.div`
 export const ImageBox = styled.div`
 
 `;
+
+export const Type = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+
+    label {
+        width: 100px;
+        margin-left: 8px;
+    }
+`;

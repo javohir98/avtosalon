@@ -109,10 +109,12 @@ const AddCarModule = ({close}) => {
                     </FormRowBox>
                     <FormRowBox>
                         <Label>Tanirovkasi</Label>
-                        <Select {...register("tonirovka")} defaultValue={editData && editData.tonirovka}>
-                            <Option defaultValue={editData && editData.tonirovka === 'bor'} value='bor'>bor</Option>
-                            <Option defaultValue={editData && editData.tonirovka === "yo'q"} value="yo'q">yo'q</Option>
-                        </Select>
+                        <Input 
+                            {...register("tonirovka")} 
+                            defaultValue={editData && editData.tonirovka} 
+                            type={'text'} 
+                            placeholder='Kiriting' 
+                        />
                     </FormRowBox>
                 </FormGroup>
                 <FormGroup>
