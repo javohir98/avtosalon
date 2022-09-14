@@ -82,7 +82,7 @@ const CarDetails = () => {
             </div>
             <ImageBox>
               {inSide ?
-                <CarInside img={`https://cartestwebapp.herokuapp.com/${car.imgUrlInside}`} />
+                <CarInside />
               : 
                 <ThreeSixty
                   amount={72}
