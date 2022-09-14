@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Close, Container, Form, FormGroup, FormLine, FormRowBox, Header, Input, Label, Option, Select, TextArea, Wrapper } from '../Module.style'
 import { IoMdClose } from 'react-icons/io'
 import tag from '../../assets/images/tag_dark.png'
@@ -6,38 +6,34 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { changeEdit } from '../../redux/admin/adminSlice';
+import { uploadFile } from '../../services/FileUploadService';
 
 const AddCarModule = ({close}) => {
     const [isLoading, setIsLoading] = useState(false)
+    const [objFile, setObjFile] = useState(null);
+    const [nameFile, setNameFile] = useState("");
+    const [image, uploadData] = uploadFile();
     const { register, handleSubmit, reset } = useForm();
     const categories = useSelector(state => state.user.category)
     const editData = useSelector(state => state.admin.isEdit.data)
     const dispatch = useDispatch()
 
     const onSubmit = async data => {
-        const formData = new FormData();
-        formData.append("file", data.imgUrl[0]);
         setIsLoading(true)
 
-        await axios.post('https://cartestwebapp.herokuapp.com/upload', formData)
-        .then((res) => {
-            let temporarilyData = {
-                "imgUrl": res.data.data,
-                "imgUrlInside":"img-db607b3fdb99095051f37c849887ace7.jpg",
-                "imgUrlAutside":"img-9c3a72917ef084370f9130349ed33445.jpg",
-                "price": parseInt(data.price),
-                "year": parseInt(data.year),
-                "description": data.description,
-                "tonirovka": data.tonirovka,
-                "motor": data.motor,
-                "color": data.color,
-                "distance": data.distance,
-                "gearbok": data.gearbok,
-                "categoryId": data.categoryId
-            }
-            editData ? handleEdit(temporarilyData) : addCar(temporarilyData)
-        })
+        let temporarilyData = {
+            "price": parseInt(data.price),
+            "year": parseInt(data.year),
+            "description": data.description,
+            "tonirovka": data.tonirovka,
+            "motor": data.motor,
+            "color": data.color,
+            "distance": data.distance,
+            "gearbok": data.gearbok,
+            "categoryId": data.categoryId
+        }
         
+        editData ? handleEdit(temporarilyData) : addCar({...objFile,...temporarilyData});
     }
 
     const addCar = async (data) => {
@@ -78,6 +74,18 @@ const AddCarModule = ({close}) => {
             close(false)
         }
     }
+
+    const handleChange = e => {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0]);
+        uploadData(formData)
+        setNameFile(e.target.name)
+    }
+
+    useEffect(() => {
+        if(nameFile)
+            setObjFile({ ...objFile, [nameFile]: image.data });
+    }, [nameFile, image]);
 
   return (
     <Wrapper onClick={exitModule}>
@@ -180,11 +188,11 @@ const AddCarModule = ({close}) => {
                 <FormGroup>
                     <FormRowBox>
                         <Label>Rasm 360 ichki makon</Label>
-                        <Input {...register("imgUrlInside")} type={'file'} placeholder='Kiriting' />
+                        <Input onChange={handleChange} name="imgUrlInside" type={'file'} placeholder='Kiriting' />
                     </FormRowBox>
                     <FormRowBox>
                         <Label>Rasm 360 tashqi makon</Label>
-                        <Input {...register("imgUrlAutside")} type={'file'} placeholder='Kiriting' />
+                        <Input onChange={handleChange} name='imgUrlAutside' type={'file'} placeholder='Kiriting' />
                     </FormRowBox>
                 </FormGroup>
                 <FormGroup>
@@ -200,7 +208,7 @@ const AddCarModule = ({close}) => {
                     </FormRowBox>
                     <FormRowBox>
                         <Label>Modeli turi uchun rasm </Label>
-                        <Input {...register("imgUrl")} type={'file'} placeholder='Kiriting' />
+                        <Input onChange={handleChange} name='imgUrl' type={'file'} placeholder='Kiriting' />
                     </FormRowBox>
                 </FormGroup>
                 <FormLine />
