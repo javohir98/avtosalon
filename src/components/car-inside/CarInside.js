@@ -1,13 +1,12 @@
 import React from 'react'
 import { Pannellum } from "pannellum-react";
-import myImg from '../../assets/360-img.jpg'
 
-const CarInside = () => {
+const CarInside = ({img}) => {
   return (
     <Pannellum
         width="100%"
         height="500px"
-        image={myImg}
+        image={img}
         pitch={10}
         yaw={180}
         hfov={110}
